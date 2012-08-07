@@ -1,0 +1,50 @@
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [aticfx32.dll 8.17.10.1063]
+    Renderer: AMD Radeon HD 6570    
+    Vendor:   ATI
+    VRAM:     1008 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 DF24=1 INTZ=1 RAWZ=0 NULL=1 RESZ=1 SlowINTZ=1
+desktop: 1280x720 60Hz; virtual: 1280x720 at 0,0
+<I> Initializing (RawInput).
+<RI> Input initialized.
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\C5.dll (this message is harmless)
+Loading C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\C5.dll into Unity Child Domain
+- Completed reload, in  0.067 seconds
+Platform assembly: C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\UnityScript.Lang.dll (this message is harmless)
+Platform assembly: C:\Users\Dan\Desktop\Life\Possessed\8-6-12_PCBuild_Data\Managed\Boo.Lang.dll (this message is harmless)
+The referenced script on this Behaviour is missing!
+ 
+(Filename: C:/BuildAgent/work/b0bcff80449a48aa/Runtime/Mono/MonoBehaviour.cpp Line: 1576)
+
+3
+ 
+(Filename: C:/BuildAgent/work/b0bcff80449a48aa/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 43)
+
+The referenced script on this Behaviour is missing!
+ 
+(Filename: C:/BuildAgent/work/b0bcff80449a48aa/Runtime/Mono/MonoBehaviour.cpp Line: 1576)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 21783 unused Assets to reduce memory usage. Loaded Objects now: 41715. Operation took 70.075892 ms.
+ivyBoxAwaken
+ 
+(Filename: C:/BuildAgent/work/b0bcff80449a48aa/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 43)
+
+The referenced script on this Behaviour is missing!
+ 
+(Filename: C:/BuildAgent/work/b0bcff80449a48aa/Runtime/Mono/MonoBehaviour.cpp Line: 1576)
+
