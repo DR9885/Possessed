@@ -39,16 +39,32 @@ function Update()
 		
 		if ( forwardMotion > 0 )
 		{
-			// Adjust the animation speed to match with how fast the
-			// character is moving forward
-			t = Mathf.Clamp( Mathf.Abs( speed / maxForwardSpeed ), 0, maxForwardSpeed );
-			animationTarget[ "walk" ].speed = Mathf.Lerp( 0.25, 1, t );
+			if ( forwardMotion < 1.51 )
+			{
+				// Adjust the animation speed to match with how fast the
+				// character is moving forward
+				t = Mathf.Clamp( Mathf.Abs( speed / maxForwardSpeed ), 0, maxForwardSpeed );
+				animationTarget[ "walk" ].speed = Mathf.Lerp( 0.25, 1, t );
 										
-			if ( animationTarget.IsPlaying( "idle" ) )
-				// Don't blend coming from a land, just play
-				animationTarget.Play( "walk" ); 
+				if ( animationTarget.IsPlaying( "idle" ) )
+					// Don't blend coming from a land, just play
+					animationTarget.Play( "walk" ); 
+				else
+					animationTarget.CrossFade( "walk" );
+			}
 			else
-				animationTarget.CrossFade( "walk" );
+			{
+				// Adjust the animation speed to match with how fast the
+				// character is moving forward
+				t = Mathf.Clamp( Mathf.Abs( speed / maxForwardSpeed ), 0, maxForwardSpeed );
+				animationTarget[ "run" ].speed = Mathf.Lerp( 0.25, 1, t );
+										
+				if ( animationTarget.IsPlaying( "idle" ) )
+					// Don't blend coming from a land, just play
+					animationTarget.Play( "run" ); 
+				else
+					animationTarget.CrossFade( "run" );
+			}
 		}
 	}
 	else
