@@ -1,6 +1,15 @@
 ﻿<Properties>
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench />
+=======
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Standard Assets/Image Effects (Pro Only)/GlowEffect.cs">
+    <Files>
+      <File FileName="Assets/Standard Assets/Image Effects (Pro Only)/GlowEffect.cs" Line="102" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+>>>>>>> 67fce42db31dcbbb1ceb4ba7ac52f5ab32b5c254
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
