@@ -1,5 +1,5 @@
 var animationTarget : Animation;
-var maxForwardSpeed : float = 6;
+var maxForwardSpeed : float = 1;
 
 private var character : CharacterController; 
 private var thisTransform : Transform; 
@@ -43,8 +43,8 @@ function Update()
 			{
 				// Adjust the animation speed to match with how fast the
 				// character is moving forward
-				t = Mathf.Clamp( Mathf.Abs( speed / maxForwardSpeed ), 0, maxForwardSpeed );
-				animationTarget[ "walk" ].speed = Mathf.Lerp( 0.25, 1, t );
+				//t = Mathf.Clamp( Mathf.Abs( speed / maxForwardSpeed ), 0, maxForwardSpeed );
+				//animationTarget[ "walk" ].speed = Mathf.Lerp( 0.25, 1, t );
 										
 				if ( animationTarget.IsPlaying( "idle" ) )
 					// Don't blend coming from a land, just play
@@ -56,8 +56,8 @@ function Update()
 			{
 				// Adjust the animation speed to match with how fast the
 				// character is moving forward
-				t = Mathf.Clamp( Mathf.Abs( speed / maxForwardSpeed ), 0, maxForwardSpeed );
-				animationTarget[ "run" ].speed = Mathf.Lerp( 0.25, 1, t );
+				//t = Mathf.Clamp( Mathf.Abs( speed / maxForwardSpeed ), 0, maxForwardSpeed );
+				//animationTarget[ "run" ].speed = Mathf.Lerp( 0.25, 1, t );
 										
 				if ( animationTarget.IsPlaying( "idle" ) )
 					// Don't blend coming from a land, just play
