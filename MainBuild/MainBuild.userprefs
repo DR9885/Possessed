@@ -1,10 +1,16 @@
 ﻿<Properties>
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench />
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Standard Assets/Image Effects (Pro Only)/GlowEffect.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AnimationController.js">
     <Files>
-      <File FileName="Assets/Standard Assets/Image Effects (Pro Only)/GlowEffect.cs" Line="102" Column="3" />
+      <File FileName="Assets/Scripts/AnimationController.js" Line="47" Column="7" />
+      <File FileName="Assets/Scripts/RotationConstraint.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
+>>>>>>> 3c463399d6297bce51a2a142484c6c4f105b37ea
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
