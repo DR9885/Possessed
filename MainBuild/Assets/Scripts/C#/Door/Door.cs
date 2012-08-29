@@ -13,4 +13,12 @@ public class Door : MonoBehaviour
             return _animation;
         }
     }
+
+    public FiniteStateMachine<Door> FSM = new FiniteStateMachine<Door>();
+
+    public void Awake()
+    {
+        FSM.Init(this, null);
+    }
+
 }
