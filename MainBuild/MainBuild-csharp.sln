@@ -1,20 +1,32 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-
+Project("{1E095360-FF91-487A-B40C-A2CBBB57CA35}") = "MainBuild", "Assembly-CSharp-vs.csproj", "{3F4A5D0B-37D8-DED1-4FAF-74D0B695A257}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-
+		{3F4A5D0B-37D8-DED1-4FAF-74D0B695A257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F4A5D0B-37D8-DED1-4FAF-74D0B695A257}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F4A5D0B-37D8-DED1-4FAF-74D0B695A257}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F4A5D0B-37D8-DED1-4FAF-74D0B695A257}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 <<<<<<< HEAD
+<<<<<<< HEAD
 																																				GlobalSection(MonoDevelopProperties) = preSolution
+=======
+<<<<<<< HEAD
+																																											GlobalSection(MonoDevelopProperties) = preSolution
+=======
+																																	GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> 14893244b1433265c33287bc0ed42a0116f14c67
+>>>>>>> b374c463c21607424a8dd03a6006e789a1cc9375
 =======
 																																					GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> d7414daba935a257e403c9266a4c98ee1ee73957
