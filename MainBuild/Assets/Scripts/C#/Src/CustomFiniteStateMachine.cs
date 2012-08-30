@@ -11,6 +11,6 @@ public class CustomFiniteStateMachine : MonoBehaviour {
     }
 
     public void OnPreviousState() {
-        FSM.PreviousState();
+        FSM.UndoState();
     }
 }

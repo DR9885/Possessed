@@ -1,28 +1,38 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class MasterController : MonoBehaviour
+public enum ControllerStates
+{
+    None,
+    Door,
+    PickUp,
+    Possession
+}
+
+public class MasterController : MonoBehaviour 
 {
     public FiniteStateMachine<MasterController> FSM = new FiniteStateMachine<MasterController>();
 
-    public IEnumerable<IFiniteState<MasterController>> Controllers
+    public Dictionary<ControllerStates, IFiniteState<MasterController>> _finiteStates;
+    public Dictionary<ControllerStates, IFiniteState<MasterController>> FiniteStates
     {
         get
         {
-            return GetComponents<MonoBehaviour>()
-                .Where(x => x as IFiniteState<MasterController> != null)
-                .Select(x => x as IFiniteState<MasterController>);
+            if (_finiteStates == null)
+                _finiteStates = new Dictionary<ControllerStates, IFiniteState<MasterController>>()
+                                        {
+                                            { global::ControllerStates.Door, GetComponent<DoorController>() }
+                                        };
+            return _finiteStates;
         }
     }
-        
 
     private void Awake()
     {
-
-
-        Debug.Log(Controllers.Count());
-        FSM.Init(this, Controllers.FirstOrDefault());
+        FSM.Init(this);
+        FSM.ChangeState(new DoorController());
     }
 
     private void FixedUpdate()

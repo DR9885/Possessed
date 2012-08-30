@@ -26,11 +26,10 @@ public class FiniteStateMachine<T> where T : class
 
     #endregion
 
-    public void Init(T owner, IFiniteState<T> initial, IFiniteState<T> global = null)
+    public void Init(T owner, IFiniteState<T> global = null)
     {
         _owner = owner;
         _global = global;
-        ChangeState(initial);
     }
 
     public void ChangeState(IFiniteState<T> state)
