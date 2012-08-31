@@ -53,7 +53,6 @@
      <Compile Include="Assets\Scripts\RotationConstraint.js" />
      <Compile Include="Assets\Scripts\SmoothFollow.js" />
      <Compile Include="Assets\Scripts\ZoomCamera.js" />
-     <None Include="Assets\Shaders\Outlined.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
