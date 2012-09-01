@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\PCMovement.js" />
      <Compile Include="Assets\Scripts\PlayerControl.js" />
      <Compile Include="Assets\Scripts\RotationConstraint.js" />
+     <Compile Include="Assets\Scripts\SetDestination.js" />
      <Compile Include="Assets\Scripts\SmoothFollow.js" />
      <Compile Include="Assets\Scripts\ZoomCamera.js" />
   </ItemGroup>
