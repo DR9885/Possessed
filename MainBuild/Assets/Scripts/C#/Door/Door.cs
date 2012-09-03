@@ -10,6 +10,7 @@ public enum DoorState
     Close,
 }
 
+[AddComponentMenu("Possessed/Objects/Door")]
 public class Door : MonoBehaviour
 {
     private Animation _animation;
@@ -17,9 +18,29 @@ public class Door : MonoBehaviour
     {
         get
         {
-            if(_animation == null)
+            if (_animation == null)
                 _animation = GetComponent<Animation>();
             return _animation;
+        }
+    }
+
+    private Transform _transform;
+    public Transform Transform
+    {
+        get
+        {
+            if (_transform == null)
+                _transform = GetComponent<Transform>();
+            return _transform;
+        }
+    }
+
+    private Vector3 _offsetPosition = new Vector3(.6f, 0.6f, 0);
+    public Vector3 Position
+    {
+        get
+        {
+            return Transform.position + _offsetPosition;
         }
     }
 
