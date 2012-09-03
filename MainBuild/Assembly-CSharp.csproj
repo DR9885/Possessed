@@ -44,9 +44,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\C#\Controller\ControllerStates\ControllerIdleState.cs" />
-     <Compile Include="Assets\Scripts\C#\Controller\ControllerStates\ControllerTargetState.cs" />
      <Compile Include="Assets\Scripts\C#\Controller\MasterController.cs" />
+     <Compile Include="Assets\Scripts\C#\Controller\States\ControllerActiveState.cs" />
+     <Compile Include="Assets\Scripts\C#\Controller\States\ControllerIdleState.cs" />
+     <Compile Include="Assets\Scripts\C#\Controller\States\ControllerTargetState.cs" />
      <Compile Include="Assets\Scripts\C#\Door\Door.cs" />
      <Compile Include="Assets\Scripts\C#\Door\DoorController.cs" />
      <Compile Include="Assets\Scripts\C#\Door\States\DoorCloseState.cs" />
