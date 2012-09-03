@@ -11,8 +11,10 @@ public enum DoorState
 }
 
 [AddComponentMenu("Possessed/Objects/Door")]
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, ITargetable
 {
+    #region Fields
+
     private Animation _animation;
     public Animation Animation
     {
@@ -35,7 +37,18 @@ public class Door : MonoBehaviour
         }
     }
 
-    private Vector3 _offsetPosition = new Vector3(.6f, 0.6f, 0);
+    private SkinnedMeshRenderer _targetRenderer;
+    public Renderer TargetRenderer
+    {
+        get
+        {
+            if (_targetRenderer == null)
+                _targetRenderer = GameObject.Find("joint1").GetComponent<SkinnedMeshRenderer>();
+            return _targetRenderer;
+        }
+    }
+
+    private Vector3 _offsetPosition = new Vector3(0f, 0.6f, 0f);
     public Vector3 Position
     {
         get
@@ -45,11 +58,10 @@ public class Door : MonoBehaviour
     }
 
     public FSM<Door, DoorState> FSM;
-
-
     public bool CanClose;
     public DoorState State;
 
+    #endregion
 
     #region Unity Methods
 
