@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Shaders/OutlinedDiffuse3.shader">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Shaders/SilhouetteOutlinedDiffuse.shader">
     <Files>
-      <File FileName="Assets/Shaders/OutlinedDiffuse3.shader" Line="111" Column="2" />
+      <File FileName="Assets/Shaders/SilhouetteOutlinedDiffuse.shader" Line="94" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

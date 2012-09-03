@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\C#\Door\States\DoorOpenState.cs" />
      <Compile Include="Assets\Scripts\C#\Src\FSM.cs" />
      <Compile Include="Assets\Scripts\C#\Src\FSMState.cs" />
+     <None Include="Assets\Shaders\2Sided.shader" />
      <None Include="Assets\Shaders\SilhouetteOutlinedDiffuse.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
