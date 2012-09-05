@@ -11,7 +11,7 @@ public class DoorOpenState : FSMState<Door, DoorState>
     public override void Enter(Door entity)
     {
         Debug.Log("Open");
-        //entity.Animation.Play("Open");
+        entity.Animation.Play("Open");
     }
 
     public override void Execute(Door entity)

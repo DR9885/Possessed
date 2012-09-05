@@ -10,7 +10,7 @@ public class DoorCloseState : FSMState<Door, DoorState> {
     public override void Enter(Door entity)
     {
         Debug.Log("close");
-//        entity.Animation.Play("Close");    
+        entity.Animation.Play("Close");    
     }
 
     public override void Execute(Door entity)
