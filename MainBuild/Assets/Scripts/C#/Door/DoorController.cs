@@ -62,9 +62,10 @@ public class DoorController : MonoBehaviour, IController
         {
             float width = 100.0f, height = 100.0f;
 
-            GUI.Button(new Rect(Screen.width / 2.0f - width / 2.0f, 
+            if(GUI.Button(new Rect(Screen.width / 2.0f - width / 2.0f, 
                 Screen.height / 2.0f - height / 2.0f, 100, 100),
-                "Open Door");
+                "Open Door"))
+                (Target as Door).State = DoorState.Open;
 
         }
     }
