@@ -44,6 +44,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\C#\Controller\Interfaces\IController.cs" />
+     <Compile Include="Assets\Scripts\C#\Controller\Interfaces\ITargetable.cs" />
      <Compile Include="Assets\Scripts\C#\Controller\MasterController.cs" />
      <Compile Include="Assets\Scripts\C#\Controller\States\ControllerActiveState.cs" />
      <Compile Include="Assets\Scripts\C#\Controller\States\ControllerIdleState.cs" />

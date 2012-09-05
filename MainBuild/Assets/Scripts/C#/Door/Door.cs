@@ -43,7 +43,7 @@ public class Door : MonoBehaviour, ITargetable
         get
         {
             if (_targetRenderer == null)
-                _targetRenderer = GameObject.Find("joint1").GetComponent<SkinnedMeshRenderer>();
+                _targetRenderer = Transform.Find("joint1").GetComponent<SkinnedMeshRenderer>();
             return _targetRenderer;
         }
     }
