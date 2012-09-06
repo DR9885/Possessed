@@ -1,23 +1,23 @@
-public class ControllerActiveState : FSMState<MasterController, TargetState>
+public class ControllerActiveState : FSMState<ITargetable, TargetState>
 {
 
     public override TargetState State
     {
-        get { return TargetState.Idle; }
+        get { return TargetState.Active; }
     }
 
-    public override void Enter(MasterController entity)
+    public override void Enter(ITargetable entity)
     {
-        throw new System.NotImplementedException();
+
     }
 
-    public override void Execute(MasterController entity)
+    public override void Execute(ITargetable entity)
     {
-        throw new System.NotImplementedException();
+
     }
 
-    public override void Exit(MasterController entity)
+    public override void Exit(ITargetable entity)
     {
-        throw new System.NotImplementedException();
+
     }
 }

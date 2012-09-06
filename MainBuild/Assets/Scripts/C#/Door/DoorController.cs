@@ -7,18 +7,17 @@ public class DoorController : MonoBehaviour, IController
 {
     #region Fields
 
-    public int _Distance = 10;
+    [SerializeField] private int _Distance = 10;
     public float Distance { get { return _Distance; } }
 
-    public float _Angle = 45;
+    [SerializeField] private float _Angle = 45;
     public float Angle { get { return _Angle; } }
 
-    public ITargetable _Target;
-    public ITargetable Target
-    {
-        get { return _Target; }
-        set { _Target = value; }
-    }
+    [SerializeField] private DebugControllerSettings _debug = new DebugControllerSettings();
+    public DebugControllerSettings Debug { get { return _debug; } }
+
+    [SerializeField] private  ITargetable _Target;
+    public ITargetable Target { get { return _Target; } }
 
     private Transform _transform;
     private Transform Transform
@@ -31,29 +30,18 @@ public class DoorController : MonoBehaviour, IController
         }
     }
 
-    private Vector3 _offsetPosition = new Vector3(0.0f, 0.6f, 0.0f);
     public Vector3 Position
     {
-        get { return Transform.position + _offsetPosition; }
+        get { return Transform.position + new Vector3(0.0f, 0.6f, 0.0f); }
     }
-
-    private Material _hoverMaterial;
-    private Material _originalMaterial;
 
     #endregion
 
     #region Unity Methods
 
-    private void Awake()
-    {
-        _hoverMaterial = new Material(Shader.Find("Outlined/Silhouetted Diffuse"));
-        _hoverMaterial.SetColor("_Color", Color.white);
-        _hoverMaterial.SetColor("_OutlineColor", Color.blue);
-    }
-
     private void FixedUpdate()
     {
-        Target = GetTarget();
+        _Target = GetTarget();
     }
 
     private void OnGUI()
@@ -65,22 +53,21 @@ public class DoorController : MonoBehaviour, IController
             if(GUI.Button(new Rect(Screen.width / 2.0f - width / 2.0f, 
                 Screen.height / 2.0f - height / 2.0f, 100, 100),
                 "Open Door"))
-                (Target as Door).State = DoorState.Open;
-
+                (Target as Door).ActionState = DoorState.Open;
         }
     }
 
     #endregion
 
-    public bool IsInFOV(Door Target)
+    private bool IsInFOV(Door target)
     {
-        var heading = Vector3.Normalize(Target.Position - Position);
+        var heading = Vector3.Normalize(target.Position - Position);
         var dot = Vector3.Dot(transform.forward, heading);
         var degrees = Mathf.Rad2Deg * Mathf.Acos(dot);
         return degrees < _Angle;
     }
 
-    public ITargetable GetTarget()
+    private ITargetable GetTarget()
     {
         ITargetable doorTargeted = null;
         var doors = FindObjectsOfType(typeof(Door)).Select(x => x as Door);

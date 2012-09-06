@@ -1,4 +1,4 @@
-public class ControllerIdleState : FSMState<MasterController, TargetState>
+public class ControllerIdleState : FSMState<ITargetable, TargetState>
 {
 
     public override TargetState State
@@ -6,17 +6,17 @@ public class ControllerIdleState : FSMState<MasterController, TargetState>
         get { return TargetState.Idle; }
     }
 
-    public override void Enter(MasterController entity)
+    public override void Enter(ITargetable entity)
     {
 
     }
 
-    public override void Execute(MasterController entity)
+    public override void Execute(ITargetable entity)
     {
 
     }
 
-    public override void Exit(MasterController entity)
+    public override void Exit(ITargetable entity)
     {
 
     }

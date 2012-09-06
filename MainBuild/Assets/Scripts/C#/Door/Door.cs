@@ -57,9 +57,25 @@ public class Door : MonoBehaviour, ITargetable
         }
     }
 
-    public FSM<Door, DoorState> FSM;
+
+    public FSM<ITargetable, TargetState> TargetFSM { get; set; }
+    public FSM<Door, DoorState> ActionFSM { get; set; }
+
+    [SerializeField] private TargetState _targetState;
+    public TargetState TargetState
+    {
+        set { _targetState = value; }
+        get { return _targetState; }
+    }
+
+    [SerializeField] private bool _Debug;
+    public bool Debug
+    {
+        get { return _Debug; }
+    }
+
+    public DoorState ActionState;
     public bool CanClose;
-    public DoorState State;
 
     #endregion
 
@@ -67,15 +83,22 @@ public class Door : MonoBehaviour, ITargetable
 
     private void Awake()
     {
-        FSM = new FSM<Door, DoorState>(this);
-        FSM.RegisterState(new DoorIdleState());
-        FSM.RegisterState(new DoorOpenState());
-        FSM.RegisterState(new DoorCloseState());
+        TargetFSM = new FSM<ITargetable, TargetState>(this);
+        TargetFSM.RegisterState(new ControllerIdleState());
+        TargetFSM.RegisterState(new ControllerTargetState());
+        TargetFSM.RegisterState(new ControllerActiveState());
+
+
+        ActionFSM = new FSM<Door, DoorState>(this);
+        ActionFSM.RegisterState(new DoorIdleState());
+        ActionFSM.RegisterState(new DoorOpenState());
     }
 
     private void FixedUpdate()
     {
-        FSM.Update(State);
+        TargetFSM.Update(TargetState);
+
+        ActionFSM.Update(ActionState);
     }
 
     #endregion
