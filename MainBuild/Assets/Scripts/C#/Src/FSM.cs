@@ -14,23 +14,23 @@ public class FSM<T, E> where T : class
     #region Fields
 
     private T Owner { get; set; }
-    private Stack<FSMState<T, E>> StateHistory { get; set; }
-    private Dictionary<E, FSMState<T, E>> StateRegistry { get; set; }
+    private Stack<IFSMState<T, E>> StateHistory { get; set; }
+    private Dictionary<E, IFSMState<T, E>> StateRegistry { get; set; }
 
-    public FSMState<T, E> GlobalState { get; set; }
-    public FSMState<T, E> CurrentState { get; set; }
-    public FSMState<T, E> PreviousState { get; set; }
+    public IFSMState<T, E> GlobalState { get; set; }
+    public IFSMState<T, E> CurrentState { get; set; }
+    public IFSMState<T, E> PreviousState { get; set; }
 	
     #endregion
 
     public FSM(T owner)
     {
-        StateHistory = new Stack<FSMState<T, E>>();
-        StateRegistry = new Dictionary<E, FSMState<T, E>>();
+        StateHistory = new Stack<IFSMState<T, E>>();
+        StateRegistry = new Dictionary<E, IFSMState<T, E>>();
         Owner = owner;
     }
 
-    public void Update(FSMState<T, E> state)
+    public void Update(IFSMState<T, E> state)
     {
         if (state != CurrentState) ChangeState(state);
         if (GlobalState != null) GlobalState.Execute(Owner);
@@ -39,20 +39,20 @@ public class FSM<T, E> where T : class
 
     public void Update(E state)
     {
-        Update(StateRegistry[state]);
+        Update(StateRegistry.ContainsKey(state)? StateRegistry[state] : null);
     }
 
-    public void RegisterState(FSMState<T, E> state)
+    public void RegisterState(IFSMState<T, E> state)
     {
         StateRegistry.Add(state.State, state);
     }
 
-    public void UnregisterState(FSMState<T, E> state)
+    public void UnregisterState(IFSMState<T, E> state)
     {
         StateRegistry.Remove(state.State);
     }
 
-    public void ChangeState(FSMState<T, E> state)
+    public void ChangeState(IFSMState<T, E> state)
     {
         PreviousState = CurrentState;
         CurrentState = state;

@@ -3,30 +3,18 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public enum ControllerState
-{
-    None,
-    Door,
-    PickUp,
-    Possession
-}
-
-public enum TargetState
-{
-    Idle,
-    Target,
-    Active
-}
-
 [AddComponentMenu("Possessed/Controlls/Master")]
 public class MasterController : MonoBehaviour
 {
     #region Fields
 
-    private Material _hoverMaterial;
-    private Material _originalMaterial;
+    private MonoBehaviour _target;
+    private ITargetable Target
+    {
+        get { return _target as ITargetable; }
+        set { _target = value as MonoBehaviour; }
+    }
 
-    private ITargetable _target;
     private IEnumerable<IController> _controllers;
     private IEnumerable<IController> Controllers
     {
@@ -49,69 +37,60 @@ public class MasterController : MonoBehaviour
         }
     }
 
-    public Vector3 Position
-    {
-        get { return Transform.position + new Vector3(0.0f, 0.6f, 0.0f); }
-    }
-
     #endregion
 
     #region Unity Methods
 
+    private void Awake()
+    {
+        Input.multiTouchEnabled = true;
+
+    }
+
     private void FixedUpdate()
     {
+        if(Input.GetKeyDown(KeyCode.Return))
+            Debug.Log("ENTER");
+
         // Update Controller, with closest target
         var controller = Controllers
-            .OrderBy(x => Vector3.Distance(x.Target.Position, Position))
+            .OrderBy(x => Vector3.Distance(x.Target.Transform.position, Transform.position))
             .FirstOrDefault();
 
-
-        // Update Target
-        if (controller != null && _target != controller.Target)
+        if(controller != null)
         {
-            if (_target == null)
+            // Update Target
+            if (Target != controller.Target)
             {
-                _target = controller.Target;
-                //OnTarget(controller.Target);
-            }
-            else
-            {
-                //OnUntarget(_target);
-                _target = null;
+                if (Target == null)
+                {
+                    Target = controller.Target;
+                    OnTarget(controller.Target);
+                }
+                else
+                {
+                    OnUntarget(Target);
+                    _target = null;
+                }
             }
         }
     }
 
     private void OnDrawGizmos()
     {
-        foreach (var controller in Controllers)
-        {
-            if (controller.Debug.Active == false) continue;
-
-            // Draw Target Line
-            if (controller.Target != null)
-            {
-                Gizmos.color = controller.Debug.TargetColor;
-                Gizmos.DrawLine(Position, controller.Target.Position);
-            }
-
-            // Draw View Frustum
-            Gizmos.color = controller.Debug.ViewColor;
-            Gizmos.matrix = Matrix4x4.TRS(Position, Transform.rotation, Transform.lossyScale);
-            Gizmos.DrawFrustum(Vector3.zero, controller.Angle * 2, controller.Distance, 0, 1);
-        }
+        foreach (IController controller in Controllers)
+            controller.OnDrawGizmos();
     }
 
     #endregion
 
-    //public void OnTarget(ITargetable target)
-    //{
-    //    target.TargetState = TargetState.Target;
-    //}
+    public void OnTarget(ITargetable target)
+    {
+        target.TargetState = TargetState.Target;
+    }
 
-    //public void OnUntarget(ITargetable target)
-    //{
-    //    target.TargetState = TargetState.Idle;
-    //}
-
+    public void OnUntarget(ITargetable target)
+    {
+        target.TargetState = TargetState.Idle;
+    }
 }

@@ -3,13 +3,6 @@ using UnityEngine;
 using System.Collections;
 
 
-public enum DoorState
-{
-    Idle,
-    Open,
-    Close,
-}
-
 [AddComponentMenu("Possessed/Objects/Door")]
 public class Door : MonoBehaviour, ITargetable
 {
@@ -48,16 +41,6 @@ public class Door : MonoBehaviour, ITargetable
         }
     }
 
-    private Vector3 _offsetPosition = new Vector3(0f, 0.6f, 0f);
-    public Vector3 Position
-    {
-        get
-        {
-            return Transform.position + _offsetPosition;
-        }
-    }
-
-
     public FSM<ITargetable, TargetState> TargetFSM { get; set; }
     public FSM<Door, DoorState> ActionFSM { get; set; }
 
@@ -68,11 +51,11 @@ public class Door : MonoBehaviour, ITargetable
         get { return _targetState; }
     }
 
-    [SerializeField] private bool _Debug;
-    public bool Debug
-    {
-        get { return _Debug; }
-    }
+    //[SerializeField] private bool _Debug;
+    //public bool Debug
+    //{
+    //    get { return _Debug; }
+    //}
 
     public DoorState ActionState;
     public bool CanClose;

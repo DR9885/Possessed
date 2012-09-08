@@ -3,8 +3,28 @@ using UnityEngine;
 using System.Collections;
 
 [AddComponentMenu("Possessed/Controlls/Door")]
-public class DoorController : MonoBehaviour, IController
+public class DoorController : MonoBehaviour, IController, IFSMState<MasterController, ControllerState>
 {
+    public ControllerState State
+    {
+        get { return ControllerState.Door; }
+    }
+
+    public void Enter(MasterController entity)
+    {
+
+    }
+
+    public void Execute(MasterController entity)
+    {
+
+    }
+
+    public void Exit(MasterController entity)
+    {
+
+    }
+
     #region Fields
 
     [SerializeField] private int _Distance = 10;
@@ -13,15 +33,19 @@ public class DoorController : MonoBehaviour, IController
     [SerializeField] private float _Angle = 45;
     public float Angle { get { return _Angle; } }
 
-    [SerializeField] private DebugControllerSettings _debug = new DebugControllerSettings();
-    public DebugControllerSettings Debug { get { return _debug; } }
+    [SerializeField] private DebugControllerSettings _debugSettings = new DebugControllerSettings();
+    public DebugControllerSettings DebugSettings { get { return _debugSettings; } }
 
-    [SerializeField] private  ITargetable _Target;
-    public ITargetable Target { get { return _Target; } }
+    [SerializeField] private  Door _Target;
+    public ITargetable Target
+    {
+        get { return _Target; }
+        set { _Target = value as Door; }
+    }
 
     private Transform _transform;
-    private Transform Transform
-    {
+    public Transform Transform 
+    { 
         get
         {
             if (_transform == null)
@@ -29,19 +53,15 @@ public class DoorController : MonoBehaviour, IController
             return _transform;
         }
     }
-
-    public Vector3 Position
-    {
-        get { return Transform.position + new Vector3(0.0f, 0.6f, 0.0f); }
-    }
-
+    
     #endregion
 
     #region Unity Methods
 
     private void FixedUpdate()
     {
-        _Target = GetTarget();
+        // Note: Just For Debugging
+        Target = this.GetTarget();
     }
 
     private void OnGUI()
@@ -59,33 +79,4 @@ public class DoorController : MonoBehaviour, IController
 
     #endregion
 
-    private bool IsInFOV(Door target)
-    {
-        var heading = Vector3.Normalize(target.Position - Position);
-        var dot = Vector3.Dot(transform.forward, heading);
-        var degrees = Mathf.Rad2Deg * Mathf.Acos(dot);
-        return degrees < _Angle;
-    }
-
-    private ITargetable GetTarget()
-    {
-        ITargetable doorTargeted = null;
-        var doors = FindObjectsOfType(typeof(Door)).Select(x => x as Door);
-        foreach (var door in doors)
-        {
-            var distance = Vector3.Distance(Position, door.Position);
-            //Debug.Log(Vector3.Distance(transform.position, door.Transform.position));
-            if (Distance > distance)
-            {
-                if (IsInFOV(door))
-                {
-                    if (doorTargeted == null ||
-                        distance < Vector3.Distance(Position, doorTargeted.Position))
-                        doorTargeted = door;
-                }
-            }
-        }
-
-        return doorTargeted;
-    }
 }
