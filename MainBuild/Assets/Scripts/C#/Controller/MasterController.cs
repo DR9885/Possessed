@@ -3,6 +3,15 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
+public enum ControllerState
+{
+    None,
+    Door,
+    PickUp,
+    Climbing,
+    Possession
+}
+
 [AddComponentMenu("Possessed/Controlls/Master")]
 public class MasterController : MonoBehaviour
 {

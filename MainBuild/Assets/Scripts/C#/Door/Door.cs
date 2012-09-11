@@ -44,7 +44,8 @@ public class Door : MonoBehaviour, ITargetable
     }
 
     public FSM<Door, DoorState> ActionFSM { get; set; }
-    [SerializeField] private DoorState _actionState;
+    [SerializeField]
+    private DoorState _actionState;
     public DoorState ActionState
     {
         get { return _actionState; }
@@ -67,11 +68,12 @@ public class Door : MonoBehaviour, ITargetable
         ActionFSM = new FSM<Door, DoorState>(this);
         ActionFSM.RegisterState(new DoorIdleState());
         ActionFSM.RegisterState(new DoorOpenState());
+        ActionFSM.RegisterState(new DoorGhostState());
     }
 
     private void FixedUpdate()
     {
-        if(ActionFSM != null)
+        if (ActionFSM != null)
             ActionFSM.Update(ActionState);
     }
 
@@ -83,8 +85,19 @@ public class Door : MonoBehaviour, ITargetable
         ActionState = DoorState.Open;
     }
 
+    public void WalkThrough(DoorController opener)
+    {
+        _opener = opener;
+        ActionState = DoorState.Ghost;
+
+        //TODO: Disable Collider
+    }
+
     public void Close()
     {
+        _opener = null;
         ActionState = DoorState.Idle;
+
+        //TODO: Enable Collider
     }
 }

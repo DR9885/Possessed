@@ -15,7 +15,7 @@ public class DoorIdleState : IFSMState<Door, DoorState>
 
     public void Execute(Door entity)
     {
-    
+
     }
 
     public void Exit(Door entity)

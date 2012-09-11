@@ -19,10 +19,10 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
     public DebugControllerSettings DebugSettings { get { return _debugSettings; } }
 
     [SerializeField] private  Door _Target;
-
     public IEnumerable<ITargetable> Targets
     {
-        get { return Object.FindObjectsOfType(typeof(Door)).Select(x => x as ITargetable); }
+        get { return Object.FindObjectsOfType(typeof(Door)).Select(x => x as Door)
+            .Where(x => x.ActionState == DoorState.Idle).Select(x => x as ITargetable); }
     }
 
     public ITargetable Target
@@ -78,11 +78,15 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
         if(Target != null)
         {
             float width = 100.0f, height = 100.0f;
-
-            if(GUI.Button(new Rect(Screen.width / 2.0f - width / 2.0f, 
+            if (GUI.Button(new Rect(Screen.width / 2.0f - width / 2.0f,
                 Screen.height / 2.0f - height / 2.0f, 100, 100),
                 "Open Door"))
                 (Target as Door).Open(this);
+
+            if (GUI.Button(new Rect(Screen.width / 2.0f - width / 2.0f + width,
+                Screen.height / 2.0f - height / 2.0f, 100, 100),
+                "Ghost Door"))
+                (Target as Door).WalkThrough(this);
         }
     }
 
@@ -93,6 +97,8 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
     }
 
     #endregion
+
+    #region IFSMState
 
     public ControllerState State
     {
@@ -116,4 +122,6 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
         TargetFSM.Update(_state);
         enabled = false;
     }
+
+    #endregion
 }
