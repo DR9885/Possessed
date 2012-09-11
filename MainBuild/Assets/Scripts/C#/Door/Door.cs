@@ -66,10 +66,10 @@ public class Door : MonoBehaviour, ITargetable
 
     private void Awake()
     {
-        TargetFSM = new FSM<ITargetable, TargetState>(this);
-        TargetFSM.RegisterState(new ControllerIdleState());
-        TargetFSM.RegisterState(new ControllerTargetState());
-        TargetFSM.RegisterState(new ControllerActiveState());
+        //TargetFSM = new FSM<ITargetable, TargetState>(this);
+        //TargetFSM.RegisterState(new ControllerIdleState());
+        //TargetFSM.RegisterState(new ControllerTargetState());
+        //TargetFSM.RegisterState(new ControllerActiveState());
 
 
         ActionFSM = new FSM<Door, DoorState>(this);
@@ -79,7 +79,7 @@ public class Door : MonoBehaviour, ITargetable
 
     private void FixedUpdate()
     {
-        TargetFSM.Update(TargetState);
+        //TargetFSM.Update(TargetState);
 
         ActionFSM.Update(ActionState);
     }

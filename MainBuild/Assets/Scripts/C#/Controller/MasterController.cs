@@ -8,11 +8,12 @@ public class MasterController : MonoBehaviour
 {
     #region Fields
 
-    private MonoBehaviour _target;
-    private ITargetable Target
+    private FSM<MasterController, ControllerState> _controllerFSM;
+    [SerializeField] private MonoBehaviour _controller;
+    public IController Controller
     {
-        get { return _target as ITargetable; }
-        set { _target = value as MonoBehaviour; }
+        get { return _controller as IController; }
+        set { _controller = value as MonoBehaviour; }
     }
 
     private IEnumerable<IController> _controllers;
@@ -44,53 +45,18 @@ public class MasterController : MonoBehaviour
     private void Awake()
     {
         Input.multiTouchEnabled = true;
-
+        _controllerFSM = new FSM<MasterController, ControllerState>(this);
+        _controllerFSM.RegisterState(GetComponent<DoorController>());
     }
 
     private void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
-            Debug.Log("ENTER");
-
-        // Update Controller, with closest target
-        var controller = Controllers
-            .OrderBy(x => Vector3.Distance(x.Target.Transform.position, Transform.position))
+        Controller = Controllers
+            .Where(x => x.GetTarget() != null)
+            .OrderBy(x => Vector3.Distance(x.GetTarget().Transform.position, Transform.position))
             .FirstOrDefault();
 
-        if(controller != null)
-        {
-            // Update Target
-            if (Target != controller.Target)
-            {
-                if (Target == null)
-                {
-                    Target = controller.Target;
-                    OnTarget(controller.Target);
-                }
-                else
-                {
-                    OnUntarget(Target);
-                    _target = null;
-                }
-            }
-        }
+        _controllerFSM.Update(Controller as IFSMState<MasterController, ControllerState>);
     }
-
-    private void OnDrawGizmos()
-    {
-        foreach (IController controller in Controllers)
-            controller.OnDrawGizmos();
-    }
-
     #endregion
-
-    public void OnTarget(ITargetable target)
-    {
-        target.TargetState = TargetState.Target;
-    }
-
-    public void OnUntarget(ITargetable target)
-    {
-        target.TargetState = TargetState.Idle;
-    }
 }
