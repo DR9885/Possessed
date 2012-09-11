@@ -82,7 +82,7 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
             if(GUI.Button(new Rect(Screen.width / 2.0f - width / 2.0f, 
                 Screen.height / 2.0f - height / 2.0f, 100, 100),
                 "Open Door"))
-                (Target as Door).ActionState = DoorState.Open;
+                (Target as Door).Open(this);
         }
     }
 

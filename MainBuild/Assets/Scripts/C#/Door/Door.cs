@@ -8,6 +8,8 @@ public class Door : MonoBehaviour, ITargetable
 {
     #region Fields
 
+    public float CloseDistance = 10;
+
     private Animation _animation;
     public Animation Animation
     {
@@ -41,24 +43,20 @@ public class Door : MonoBehaviour, ITargetable
         }
     }
 
-    public FSM<ITargetable, TargetState> TargetFSM { get; set; }
     public FSM<Door, DoorState> ActionFSM { get; set; }
-
-    [SerializeField] private TargetState _targetState;
-    public TargetState TargetState
+    [SerializeField] private DoorState _actionState;
+    public DoorState ActionState
     {
-        set { _targetState = value; }
-        get { return _targetState; }
+        get { return _actionState; }
+        set { _actionState = value; }
     }
 
-    //[SerializeField] private bool _Debug;
-    //public bool Debug
-    //{
-    //    get { return _Debug; }
-    //}
-
-    public DoorState ActionState;
-    public bool CanClose;
+    private DoorController _opener;
+    public DoorController Opener
+    {
+        get { return _opener; }
+        set { _opener = value; }
+    }
 
     #endregion
 
@@ -66,12 +64,6 @@ public class Door : MonoBehaviour, ITargetable
 
     private void Awake()
     {
-        //TargetFSM = new FSM<ITargetable, TargetState>(this);
-        //TargetFSM.RegisterState(new ControllerIdleState());
-        //TargetFSM.RegisterState(new ControllerTargetState());
-        //TargetFSM.RegisterState(new ControllerActiveState());
-
-
         ActionFSM = new FSM<Door, DoorState>(this);
         ActionFSM.RegisterState(new DoorIdleState());
         ActionFSM.RegisterState(new DoorOpenState());
@@ -79,10 +71,20 @@ public class Door : MonoBehaviour, ITargetable
 
     private void FixedUpdate()
     {
-        //TargetFSM.Update(TargetState);
-
-        ActionFSM.Update(ActionState);
+        if(ActionFSM != null)
+            ActionFSM.Update(ActionState);
     }
 
     #endregion
+
+    public void Open(DoorController opener)
+    {
+        _opener = opener;
+        ActionState = DoorState.Open;
+    }
+
+    public void Close()
+    {
+        ActionState = DoorState.Idle;
+    }
 }

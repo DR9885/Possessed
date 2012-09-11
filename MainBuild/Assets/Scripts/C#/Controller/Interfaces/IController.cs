@@ -11,8 +11,8 @@ public interface IController
     // Objects
     Transform Transform { get; }
     FSM<IController, TargetState> TargetFSM { get; }
-    TargetState TargetState { get; set; }
     IEnumerable<ITargetable> Targets { get; }
+    TargetState TargetState { get; set; }
     ITargetable Target { get; set; }
     bool Enabled { get; set; }
 }

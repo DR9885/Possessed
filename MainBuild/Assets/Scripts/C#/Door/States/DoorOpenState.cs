@@ -15,8 +15,9 @@ public class DoorOpenState : IFSMState<Door, DoorState>
 
     public void Execute(Door entity)
     {
-        if (entity.CanClose && !entity.Animation.IsPlaying("Open"))
-            entity.ActionState = DoorState.Idle;
+        if(entity.Opener == null || entity.CloseDistance < Vector3.Distance(entity.Opener.Transform.position, entity.Transform.position))
+            if (!entity.Animation.isPlaying)
+                entity.Close();
     }
 
     public void Exit(Door entity)
