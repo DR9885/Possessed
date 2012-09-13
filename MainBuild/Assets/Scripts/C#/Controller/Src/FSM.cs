@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using System.Collections;
 using System;
@@ -17,10 +18,24 @@ public class FSM<T, E> where T : class
     private Stack<IFSMState<T, E>> StateHistory { get; set; }
     private Dictionary<E, IFSMState<T, E>> StateRegistry { get; set; }
 
-    public IFSMState<T, E> GlobalState { get; set; }
-    public IFSMState<T, E> CurrentState { get; set; }
-    public IFSMState<T, E> PreviousState { get; set; }
-	
+    private IFSMState<T, E> _globalState;
+    public E GlobalState
+    {
+        get { return _globalState.State; }
+    }
+
+    private IFSMState<T, E> _currentState;
+    public E CurrentState
+    {
+        get { return _currentState.State; }
+    }
+
+    private IFSMState<T, E> _previousState;
+    public E PreviousState
+    {
+        get { return _previousState.State; }
+    }
+
     #endregion
 
     public FSM(T owner)
@@ -30,16 +45,10 @@ public class FSM<T, E> where T : class
         Owner = owner;
     }
 
-    public void Update(IFSMState<T, E> state)
+    public void Update()
     {
-        if (state != CurrentState) ChangeState(state);
-        if (GlobalState != null) GlobalState.Execute(Owner);
-        if (CurrentState != null) CurrentState.Execute(Owner);
-    }
-
-    public void Update(E state)
-    {
-        Update(StateRegistry.ContainsKey(state)? StateRegistry[state] : null);
+        if (_globalState != null) _globalState.Execute(Owner);
+        if (_currentState != null) _currentState.Execute(Owner);
     }
 
     public void RegisterState(IFSMState<T, E> state)
@@ -54,12 +63,12 @@ public class FSM<T, E> where T : class
 
     public void ChangeState(IFSMState<T, E> state)
     {
-        PreviousState = CurrentState;
-        CurrentState = state;
+        _previousState = _currentState;
+        _currentState = state;
         StateHistory.Push(state);
 
-        if (PreviousState != null) PreviousState.Exit(Owner);
-        if (CurrentState != null) CurrentState.Enter(Owner);
+        if (_previousState != null) _previousState.Exit(Owner);
+        if (_currentState != null) _currentState.Enter(Owner);
     }
 
     public void ChangeState(E state)
@@ -68,10 +77,10 @@ public class FSM<T, E> where T : class
     }
 
 	public void UndoState() {
-        PreviousState = CurrentState;
-        CurrentState = StateHistory.Pop();
+        _previousState = _currentState;
+        _currentState = StateHistory.Pop();
 
-        if (PreviousState != null) PreviousState.Exit(Owner);
-        if (CurrentState != null) CurrentState.Enter(Owner);
+        if (_previousState != null) _previousState.Exit(Owner);
+        if (_currentState != null) _currentState.Enter(Owner);
 	}
 }

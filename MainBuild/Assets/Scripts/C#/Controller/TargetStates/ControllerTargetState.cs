@@ -57,6 +57,7 @@ public class ControllerTargetState : IFSMState<IController, TargetState>
     /// <param name="entity"></param>
     public void Exit(IController entity)
     {
+        Debug.Log("Set Original Material");
         entity.Target.TargetRenderer.material = OriginalMaterial;
     }
 }

@@ -43,11 +43,16 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
     }
 
     public FSM<IController, TargetState> TargetFSM { get; set; }
-    [SerializeField] private TargetState _state;
+    [SerializeField] private TargetState _targetState;
     public TargetState TargetState
     {
-        get { return _state; }
-        set { _state = value; }
+        get { return _targetState; }
+        set
+        {
+            if (_targetState != value)
+                TargetFSM.ChangeState(value);
+            _targetState = value;
+        }
     }
 
     public bool Enabled
@@ -66,11 +71,14 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
         TargetFSM.RegisterState(new ControllerIdleState());
         TargetFSM.RegisterState(new ControllerTargetState());
         TargetFSM.RegisterState(new ControllerActiveState());
+        TargetFSM.ChangeState(TargetState.Idle);
     }
 
     private void FixedUpdate()
     {
-        TargetFSM.Update(_state);
+        if (TargetFSM.CurrentState != _targetState)
+            TargetFSM.ChangeState(_targetState);
+        TargetFSM.Update();
     }
 
     private void OnGUI()
@@ -81,12 +89,12 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
             if (GUI.Button(new Rect(Screen.width / 2.0f - width / 2.0f,
                 Screen.height / 2.0f - height / 2.0f, 100, 100),
                 "Open Door"))
-                (Target as Door).Open(this);
+                OpenDoor();
 
             if (GUI.Button(new Rect(Screen.width / 2.0f - width / 2.0f + width,
                 Screen.height / 2.0f - height / 2.0f, 100, 100),
                 "Ghost Door"))
-                (Target as Door).WalkThrough(this);
+                WalkthroughDoor();
         }
     }
 
@@ -108,7 +116,7 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
     public void Enter(MasterController entity)
     {
         enabled = true;
-        //TargetState = TargetState.Target;
+//        TargetState = TargetState.;
     }
 
     public void Execute(MasterController entity)
@@ -119,9 +127,37 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
     public void Exit(MasterController entity)
     {
         TargetState = TargetState.Idle;
-        TargetFSM.Update(_state);
         enabled = false;
     }
 
     #endregion
+
+    public void OpenDoor()
+    {
+        if (Target != null)
+        {
+            _Target.Opener = this;
+            TargetState = TargetState.Idle;
+            _Target.ActionState = DoorState.Open;
+        }
+    }
+
+    public void WalkthroughDoor()
+    {
+        if (Target != null)
+        {
+            _Target.Opener = this;
+            TargetState = TargetState.Idle;
+            _Target.ActionState = DoorState.Ghost;
+        }
+    }
+
+    public void CloseDoor()
+    {
+        if(_Target != null)
+        {
+            _Target.ActionState = DoorState.Idle;
+            _Target.Opener = null;
+        }
+    }
 }

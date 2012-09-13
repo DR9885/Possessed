@@ -49,7 +49,12 @@ public class Door : MonoBehaviour, ITargetable
     public DoorState ActionState
     {
         get { return _actionState; }
-        set { _actionState = value; }
+        set
+        {
+            if(_actionState != value)
+                ActionFSM.ChangeState(value);
+            _actionState = value;
+        }
     }
 
     private DoorController _opener;
@@ -69,12 +74,13 @@ public class Door : MonoBehaviour, ITargetable
         ActionFSM.RegisterState(new DoorIdleState());
         ActionFSM.RegisterState(new DoorOpenState());
         ActionFSM.RegisterState(new DoorGhostState());
+        ActionFSM.ChangeState(DoorState.Idle);
     }
 
     private void FixedUpdate()
     {
         if (ActionFSM != null)
-            ActionFSM.Update(ActionState);
+            ActionFSM.Update();
     }
 
     #endregion

@@ -56,6 +56,7 @@ public class MasterController : MonoBehaviour
         Input.multiTouchEnabled = true;
         _controllerFSM = new FSM<MasterController, ControllerState>(this);
         _controllerFSM.RegisterState(GetComponent<DoorController>());
+        _controllerFSM.ChangeState(ControllerState.Door);
     }
 
     private void FixedUpdate()
@@ -65,7 +66,13 @@ public class MasterController : MonoBehaviour
             .OrderBy(x => Vector3.Distance(x.GetTarget().Transform.position, Transform.position))
             .FirstOrDefault();
 
-        _controllerFSM.Update(Controller as IFSMState<MasterController, ControllerState>);
+        if (Controller is IFSMState<MasterController, ControllerState>)
+        {
+            var controllerState = (Controller as IFSMState<MasterController, ControllerState>).State;
+            if(_controllerFSM.CurrentState != controllerState)
+                _controllerFSM.ChangeState(controllerState);
+            _controllerFSM.Update();
+        }
     }
     #endregion
 }
