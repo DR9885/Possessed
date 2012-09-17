@@ -8,7 +8,18 @@ public class Door : MonoBehaviour, ITargetable
 {
     #region Fields
 
-    public float CloseDistance = 10;
+    public float CloseDistance = 4;
+
+    private GameObject _gameObject;
+    public GameObject GameObject
+    {
+        get
+        {
+            if (_gameObject == null)
+                _gameObject = gameObject;
+            return _gameObject;
+        }
+    }
 
     private Animation _animation;
     public Animation Animation
@@ -44,14 +55,13 @@ public class Door : MonoBehaviour, ITargetable
     }
 
     public FSM<Door, DoorState> ActionFSM { get; set; }
-    [SerializeField]
-    private DoorState _actionState;
+    [SerializeField] private DoorState _actionState;
     public DoorState ActionState
     {
         get { return _actionState; }
         set
         {
-            if(_actionState != value)
+            if (_actionState != value)
                 ActionFSM.ChangeState(value);
             _actionState = value;
         }
@@ -62,6 +72,13 @@ public class Door : MonoBehaviour, ITargetable
     {
         get { return _opener; }
         set { _opener = value; }
+    }
+
+    [SerializeField] private bool _locked;
+    public bool Locked
+    {
+        get { return _locked; }
+        set { _locked = value; }
     }
 
     #endregion

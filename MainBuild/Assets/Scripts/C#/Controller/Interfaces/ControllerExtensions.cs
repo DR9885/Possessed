@@ -26,23 +26,26 @@ public static class ControllerExtensions
         return degrees < controller.Angle;
     }
 
-
     private static readonly Vector3 offset = Vector3.up*0.6f;
     public static void GizmosFOV(this IController controller)
     {
-        // Draw View Frustum
-        Gizmos.color = Color.green;
-        Gizmos.matrix = Matrix4x4.TRS(controller.Transform.position + offset, controller.Transform.rotation, controller.Transform.lossyScale);
-        Gizmos.DrawFrustum(Vector3.zero, controller.Angle * 2, controller.Distance, 0, 1);
-        Gizmos.matrix = Matrix4x4.identity;
+        if (controller.DebugSettings.Active)
+        {
+            // Draw View Frustum
+            Gizmos.color = controller.DebugSettings.ViewColor;
+            Gizmos.matrix = Matrix4x4.TRS(controller.Transform.position + offset, controller.Transform.rotation,
+                                          controller.Transform.lossyScale);
+            Gizmos.DrawFrustum(Vector3.zero, controller.Angle*2, controller.Distance, 0, 1);
+            Gizmos.matrix = Matrix4x4.identity;
+        }
     }
 
     public static void GizmosTarget(this IController controller)
     {
         // Draw Target Line
-        if (controller.Target != null)
+        if (controller.Target != null && controller.DebugSettings.Active)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = controller.DebugSettings.TargetColor;
             Gizmos.DrawLine(controller.Target.Transform.position + offset,
                             controller.Transform.position + offset);
         }

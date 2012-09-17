@@ -36,6 +36,8 @@ public class FSM<T, E> where T : class
         get { return _previousState.State; }
     }
 
+    public bool DebugChange { get; set; }
+
     #endregion
 
     public FSM(T owner)
@@ -53,7 +55,10 @@ public class FSM<T, E> where T : class
 
     public void RegisterState(IFSMState<T, E> state)
     {
-        StateRegistry.Add(state.State, state);
+        if (state == null)
+            StateRegistry.Add(default(E), state);
+        else
+            StateRegistry.Add(state.State, state);
     }
 
     public void UnregisterState(IFSMState<T, E> state)
@@ -67,7 +72,10 @@ public class FSM<T, E> where T : class
         _currentState = state;
         StateHistory.Push(state);
 
+        if (_previousState != null && DebugChange) { Debug.Log("Exit: " + state); }
         if (_previousState != null) _previousState.Exit(Owner);
+
+        if (_currentState != null && DebugChange) { Debug.Log("Enter: " + state); }
         if (_currentState != null) _currentState.Enter(Owner);
     }
 

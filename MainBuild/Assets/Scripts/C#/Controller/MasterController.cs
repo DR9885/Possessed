@@ -3,28 +3,23 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public enum ControllerState
-{
-    None,
-    Door,
-    PickUp,
-    Climbing,
-    Possession
-}
-
 [AddComponentMenu("Possessed/Controlls/Master")]
 public class MasterController : MonoBehaviour
 {
     #region Fields
 
     private FSM<MasterController, ControllerState> _controllerFSM;
-    [SerializeField] private MonoBehaviour _controller;
-    public IController Controller
+    [SerializeField] private ControllerState _controllerState;
+    private ControllerState State
     {
-        get { return _controller as IController; }
-        set { _controller = value as MonoBehaviour; }
+        set
+        {
+            if (_controllerState != value)
+                _controllerFSM.ChangeState(value);
+            _controllerState = value;
+        }
     }
-
+        
     private IEnumerable<IController> _controllers;
     private IEnumerable<IController> Controllers
     {
@@ -55,24 +50,22 @@ public class MasterController : MonoBehaviour
     {
         Input.multiTouchEnabled = true;
         _controllerFSM = new FSM<MasterController, ControllerState>(this);
+        _controllerFSM.RegisterState(null);
         _controllerFSM.RegisterState(GetComponent<DoorController>());
-        _controllerFSM.ChangeState(ControllerState.Door);
+        _controllerFSM.ChangeState(ControllerState.None);
     }
 
     private void FixedUpdate()
     {
-        Controller = Controllers
+        var controller = Controllers
             .Where(x => x.GetTarget() != null)
             .OrderBy(x => Vector3.Distance(x.GetTarget().Transform.position, Transform.position))
             .FirstOrDefault();
 
-        if (Controller is IFSMState<MasterController, ControllerState>)
-        {
-            var controllerState = (Controller as IFSMState<MasterController, ControllerState>).State;
-            if(_controllerFSM.CurrentState != controllerState)
-                _controllerFSM.ChangeState(controllerState);
-            _controllerFSM.Update();
-        }
+        State = controller is IFSMState<MasterController, ControllerState>
+                    ? (controller as IFSMState<MasterController, ControllerState>).State
+                    : ControllerState.None;
+        _controllerFSM.Update();
     }
     #endregion
 }

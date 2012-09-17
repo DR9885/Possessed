@@ -8,9 +8,11 @@ public class DoorGhostState : IFSMState<Door, DoorState>
 
     public DoorGhostState()
     {
-        HoverMaterial = new Material(Shader.Find("Outlined/Silhouetted Diffuse"));
-        HoverMaterial.SetColor("_Color", Color.white);
-        HoverMaterial.SetColor("_OutlineColor", Color.blue);
+//        HoverMaterial = new Material(Shader.Find("Outlined/Silhouetted Diffuse"));
+//        HoverMaterial.SetColor("_Color", Color.white);
+//        HoverMaterial.SetColor("_OutlineColor", Color.blue);
+
+        HoverMaterial = new Material(Shader.Find("Transparent/Bumped Diffuse"));
     }
 
     public DoorState State
@@ -34,13 +36,26 @@ public class DoorGhostState : IFSMState<Door, DoorState>
            // Debug.Log(distance / entity.Opener.Distance);
 
 
-            var color1 = HoverMaterial.GetColor("_Color");
-            color1.a = distance/entity.Opener.Distance;
-            HoverMaterial.SetColor("_Color", color1);
-           
-            var color2 = HoverMaterial.GetColor("_OutlineColor");
-            color2.a = distance/entity.Opener.Distance/4.0f;
-            HoverMaterial.SetColor("_OutlineColor", color2);
+            if (HoverMaterial.HasProperty("_MainColor"))
+            {
+                var color1 = HoverMaterial.GetColor("_MainColor");
+                color1.a = distance / entity.Opener.Distance;
+                HoverMaterial.SetColor("_MainColor", color1);
+            } 
+            
+            if (HoverMaterial.HasProperty("_Color"))
+            {
+                var color1 = HoverMaterial.GetColor("_Color");
+                color1.a = distance / entity.Opener.Distance;
+                HoverMaterial.SetColor("_Color", color1);
+            }
+
+            if (HoverMaterial.HasProperty("_OutlineColor"))
+            {
+                var color2 = HoverMaterial.GetColor("_OutlineColor");
+                color2.a = distance/entity.Opener.Distance/4.0f;
+                HoverMaterial.SetColor("_OutlineColor", color2);
+            }
 
         }
 
@@ -51,7 +66,6 @@ public class DoorGhostState : IFSMState<Door, DoorState>
 
     public void Exit(Door entity)
     {
-        Debug.Log("Set Original Material2");
         entity.TargetRenderer.material = OriginalMaterial;
     }
 }
