@@ -1,4 +1,4 @@
-
+/*
 using UnityEngine;
 
 /// <summary>
@@ -33,3 +33,4 @@ public class ControllerIdleState : IFSMState<IController, TargetState>
 
     }
 }
+*/

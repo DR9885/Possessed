@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using System.Collections;
 
 public class DoorIdleState : IFSMState<Door, DoorState>
@@ -23,3 +23,4 @@ public class DoorIdleState : IFSMState<Door, DoorState>
     
     }
 }
+ */
