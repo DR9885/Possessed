@@ -14,7 +14,7 @@ public class ControllerIdleState : IFSMState<IController, TargetState>
 
     public void Enter(IController entity)
     {
-        entity.Target = null;
+
     }
 
     public void Execute(IController entity)

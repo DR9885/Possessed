@@ -10,7 +10,6 @@ public class ControllerTargetState : IFSMState<IController, TargetState>
     {
         HoverMaterial = new Material(Shader.Find("Outlined/Silhouetted Diffuse"));
         HoverMaterial.SetColor("_Color", Color.white);
-        HoverMaterial.SetColor("_OutlineColor", Color.blue);
     }
 
     public TargetState State
@@ -27,6 +26,13 @@ public class ControllerTargetState : IFSMState<IController, TargetState>
         OriginalMaterial = entity.Target.TargetRenderer.material;
         HoverMaterial.mainTexture = OriginalMaterial.mainTexture;
         entity.Target.TargetRenderer.material = HoverMaterial;
+
+
+        var boxTrigger = entity.Target.GameObject.AddComponent<BoxCollider>();
+        boxTrigger.center = new Vector3(0, 0.84f, 0.59f);
+        boxTrigger.size = new Vector3(1.45f, 1.67f, 1.3f);
+        boxTrigger.isTrigger = true;
+
     }
 
     /// <summary>
@@ -39,6 +45,8 @@ public class ControllerTargetState : IFSMState<IController, TargetState>
         // TODO: Varible Thickness
         // TODO: Varible Speed - 
         // TODO: Varible Color -
+
+        HoverMaterial.SetColor("_OutlineColor", entity.Target.Locked ? Color.red : Color.blue);
 
         // Update Outine
         HoverMaterial.SetFloat("_Outline",
@@ -57,6 +65,7 @@ public class ControllerTargetState : IFSMState<IController, TargetState>
     /// <param name="entity"></param>
     public void Exit(IController entity)
     {
+        Object.Destroy(entity.Target.GameObject.GetComponent<BoxCollider>());
         entity.Target.TargetRenderer.material = OriginalMaterial;
     }
 }
