@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
@@ -100,4 +100,4 @@ public class Door : MonoBehaviour, ITargetable
 
         //TODO: Enable Collider
     }
-}
+}*/

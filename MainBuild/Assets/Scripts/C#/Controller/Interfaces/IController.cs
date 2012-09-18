@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using UnityEngine;
 
 public interface IController
@@ -15,4 +15,4 @@ public interface IController
     TargetState TargetState { get; set; }
     ITargetable Target { get; set; }
     bool Enabled { get; set; }
-}
+}*/

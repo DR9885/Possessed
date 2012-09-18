@@ -12,7 +12,7 @@ public enum ControllerState
     Possession
 }
 
-[AddComponentMenu("Possessed/Controlls/Master")]
+/*[AddComponentMenu("Possessed/Controlls/Master")]
 public class MasterController : MonoBehaviour
 {
     #region Fields
@@ -68,4 +68,4 @@ public class MasterController : MonoBehaviour
         _controllerFSM.Update(Controller as IFSMState<MasterController, ControllerState>);
     }
     #endregion
-}
+}*/
