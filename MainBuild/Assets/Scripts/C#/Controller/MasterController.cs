@@ -3,20 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-<<<<<<< HEAD
-public enum ControllerState
-{
-    None,
-    Door,
-    PickUp,
-    Climbing,
-    Possession
-}
-
-/*[AddComponentMenu("Possessed/Controlls/Master")]
-=======
 [AddComponentMenu("Possessed/Controlls/Master")]
->>>>>>> 8272b79ed9e45539ae578035a4f7ed1e9bb2f2e9
 public class MasterController : MonoBehaviour
 {
     #region Fields
@@ -81,4 +68,4 @@ public class MasterController : MonoBehaviour
         _controllerFSM.Update();
     }
     #endregion
-}*/
+}
