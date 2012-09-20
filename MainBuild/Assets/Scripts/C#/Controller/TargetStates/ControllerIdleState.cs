@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Searching For Targets
 /// </summary>
-public class ControllerIdleState : IFSMState<IController, TargetState>
+public class ControllerIdleState : IFSMState<MasterController, TargetState>
 {
 
     public TargetState State
@@ -12,23 +12,23 @@ public class ControllerIdleState : IFSMState<IController, TargetState>
         get { return TargetState.Idle; }
     }
 
-    public void Enter(IController entity)
+    public void Enter(MasterController entity)
     {
 
     }
 
-    public void Execute(IController entity)
+    public void Execute(MasterController entity)
     {
-        var target = entity.GetTarget();
+        var target = entity.Controller.GetTarget();
         if (target != null)
         {
-            entity.Target = target;
+            entity.Controller.Target = target;
             entity.TargetState = TargetState.Target;
         }
     }
 
 
-    public void Exit(IController entity)
+    public void Exit(MasterController entity)
     {
 
     }

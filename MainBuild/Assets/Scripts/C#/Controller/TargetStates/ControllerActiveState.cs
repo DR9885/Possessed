@@ -1,4 +1,4 @@
-public class ControllerActiveState : IFSMState<IController, TargetState>
+public class ControllerActiveState : IFSMState<MasterController, TargetState>
 {
 
     public TargetState State
@@ -6,18 +6,20 @@ public class ControllerActiveState : IFSMState<IController, TargetState>
         get { return TargetState.Active; }
     }
 
-    public void Enter(IController entity)
+
+    public void Enter(MasterController entity)
     {
-        
+        entity.ControllerState = (entity.Controller as IFSMState<MasterController, ControllerState>).State;
     }
 
-    public void Execute(IController entity)
+    public void Execute(MasterController entity)
     {
 
     }
 
-    public void Exit(IController entity)
+    public void Exit(MasterController entity)
     {
-
+        entity.Controller.Target = null;
+        entity.ControllerState = ControllerState.None;
     }
 }

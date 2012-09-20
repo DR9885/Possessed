@@ -16,9 +16,10 @@ public class PickUpController : MonoBehaviour, IController
     private float _Angle = 45;
     public float Angle { get { return _Angle; } }
 
-    [SerializeField]
-    private DebugControllerSettings _debugSettings = new DebugControllerSettings();
-    public DebugControllerSettings DebugSettings { get { return _debugSettings; } }
+    public bool ShowFOV
+    {
+        get { throw new System.NotImplementedException(); }
+    }
 
     [SerializeField]
     private PickUp _Door;

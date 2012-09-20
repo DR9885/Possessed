@@ -1,10 +1,12 @@
+using System.Linq;
 using UnityEngine;
 
 
-public class ControllerTargetState : IFSMState<IController, TargetState>
+public class ControllerTargetState : IFSMState<MasterController, TargetState>
 {
     private Material OriginalMaterial { get; set; }
     private Material HoverMaterial { get; set; }
+    private BoxCollider Collider { get; set; }
 
     public ControllerTargetState()
     {
@@ -21,51 +23,53 @@ public class ControllerTargetState : IFSMState<IController, TargetState>
     /// Start Targeting
     /// </summary>
     /// <param name="entity"></param>
-    public void Enter(IController entity)
+    public void Enter(MasterController entity)
     {
-        OriginalMaterial = entity.Target.TargetRenderer.material;
+        OriginalMaterial = entity.Controller.Target.TargetRenderer.material;
         HoverMaterial.mainTexture = OriginalMaterial.mainTexture;
-        entity.Target.TargetRenderer.material = HoverMaterial;
-
-
-        var boxTrigger = entity.Target.GameObject.AddComponent<BoxCollider>();
-        boxTrigger.center = new Vector3(0, 0.84f, 0.59f);
-        boxTrigger.size = new Vector3(1.45f, 1.67f, 1.3f);
-        boxTrigger.isTrigger = true;
-
+        entity.Controller.Target.TargetRenderer.material = HoverMaterial;
+        Collider = entity.Controller.Target.GameObject.AddComponent<BoxCollider>();
+        Collider.center = new Vector3(0, 0.84f, 0.58f);
+        Collider.size = new Vector3(1.46f, 1.7f, 1.35f);
     }
 
     /// <summary>
     /// Animate Targeting
     /// </summary>
     /// <param name="entity"></param>
-    public void Execute(IController entity)
+    public void Execute(MasterController entity)
     {
-        // TODO:  Object
-        // TODO: Varible Thickness
-        // TODO: Varible Speed - 
-        // TODO: Varible Color -
+        HoverMaterial.SetColor("_OutlineColor", entity.Controller.Target.Locked ? entity.ColorInActive : entity.ColorActive);
 
-        HoverMaterial.SetColor("_OutlineColor", entity.Target.Locked ? Color.red : Color.blue);
-
+        var time = Time.time*entity.Speed;
         // Update Outine
         HoverMaterial.SetFloat("_Outline",
-                   Mathf.Floor(Time.time % 2) == 0
-                       ? Mathf.Lerp(0, 0.01f, Time.time % 1)
-                       : Mathf.Lerp(0.01f, 0, Time.time % 1));
+                   Mathf.Floor(time % 2) == 0
+                       ? Mathf.Lerp(entity.MinSize, entity.MaxSize, time % 1)
+                       : Mathf.Lerp(entity.MaxSize, entity.MinSize, time % 1));
 
-        var target = entity.GetTarget();
-        if (target == null)
-            entity.TargetState = TargetState.Idle;
+        if (Input.GetMouseButton(0) || Input.touchCount > 0)
+        {
+            RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition),
+                                                   entity.Controller.Distance +
+                                                   Vector3.Distance(Camera.main.transform.position,
+                                                                    entity.Controller.Transform.position));
+            bool hit = hits.Any(x => x.transform == entity.Controller.Target.Transform);
+            if (hit)
+            {
+                Debug.Log("HIT");
+                entity.TargetState = TargetState.Active;
+            }
+        }
     }
 
     /// <summary>
     /// Reset Targeting
     /// </summary>
     /// <param name="entity"></param>
-    public void Exit(IController entity)
+    public void Exit(MasterController entity)
     {
-        Object.Destroy(entity.Target.GameObject.GetComponent<BoxCollider>());
-        entity.Target.TargetRenderer.material = OriginalMaterial;
+        Object.Destroy(Collider);
+        entity.Controller.Target.TargetRenderer.material = OriginalMaterial;
     }
 }

@@ -7,6 +7,7 @@ public static class ControllerExtensions
 {
     public static ITargetable GetTarget(this IController entity)
     {
+        if(entity == null) return null;
         ITargetable targeted = null;
         foreach (ITargetable target in entity.Targets)
         {
@@ -29,10 +30,10 @@ public static class ControllerExtensions
     private static readonly Vector3 offset = Vector3.up*0.6f;
     public static void GizmosFOV(this IController controller)
     {
-        if (controller.DebugSettings.Active)
+        if (controller.ShowFOV)
         {
             // Draw View Frustum
-            Gizmos.color = controller.DebugSettings.ViewColor;
+            Gizmos.color = Color.green;
             Gizmos.matrix = Matrix4x4.TRS(controller.Transform.position + offset, controller.Transform.rotation,
                                           controller.Transform.lossyScale);
             Gizmos.DrawFrustum(Vector3.zero, controller.Angle*2, controller.Distance, 0, 1);
@@ -43,9 +44,9 @@ public static class ControllerExtensions
     public static void GizmosTarget(this IController controller)
     {
         // Draw Target Line
-        if (controller.Target != null && controller.DebugSettings.Active)
+        if (controller.Target != null && controller.ShowFOV)
         {
-            Gizmos.color = controller.DebugSettings.TargetColor;
+            Gizmos.color = Color.green;
             Gizmos.DrawLine(controller.Target.Transform.position + offset,
                             controller.Transform.position + offset);
         }
