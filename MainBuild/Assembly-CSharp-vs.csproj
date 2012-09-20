@@ -50,7 +50,6 @@
      <Compile Include="Assets\Scripts\C#\Controller\Interfaces\IController.cs" />
      <Compile Include="Assets\Scripts\C#\Controller\Interfaces\ITargetable.cs" />
      <Compile Include="Assets\Scripts\C#\Controller\MasterController.cs" />
-     <Compile Include="Assets\Scripts\C#\Controller\Settings\DebugControllerSettings.cs" />
      <Compile Include="Assets\Scripts\C#\Controller\Settings\TargetSettings.cs" />
      <Compile Include="Assets\Scripts\C#\Controller\Src\FSM.cs" />
      <Compile Include="Assets\Scripts\C#\Controller\Src\IFSMState.cs" />
