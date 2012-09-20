@@ -1,4 +1,4 @@
-/*using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class DoorOpenState : IFSMState<Door, DoorState>
@@ -25,4 +25,3 @@ public class DoorOpenState : IFSMState<Door, DoorState>
         entity.Animation.Play("Close");
     }
 }
-*/

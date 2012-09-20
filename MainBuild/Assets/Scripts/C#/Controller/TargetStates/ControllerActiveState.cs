@@ -1,4 +1,4 @@
-/*public class ControllerActiveState : IFSMState<IController, TargetState>
+public class ControllerActiveState : IFSMState<IController, TargetState>
 {
 
     public TargetState State
@@ -21,4 +21,3 @@
 
     }
 }
-*/
