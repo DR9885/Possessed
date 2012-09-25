@@ -100,14 +100,10 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
         enabled = true;
 
         if(IsGhost)
-        {
             foreach (Door door in Doors)
                 door.WalkThrough(this);
-        } 
-        else
-        {
-            Open(_door);
-        }
+        else if (_door != null)
+                _door.Open(this);
 //        TargetState = TargetState.;
     }
 
@@ -126,8 +122,7 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
 
     public void Open(Door door)
     {
-        if (door != null)
-            door.Open(this);
+
     }
 
     public void Walkthrough(Door door)

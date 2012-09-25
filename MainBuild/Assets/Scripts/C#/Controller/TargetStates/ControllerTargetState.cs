@@ -50,14 +50,14 @@ public class ControllerTargetState : IFSMState<MasterController, TargetState>
 
         if (Input.GetMouseButton(0) || Input.touchCount > 0)
         {
-            RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition),
+            RaycastHit[] hits = Physics.RaycastAll(entity.Camera.ScreenPointToRay(Input.mousePosition),
                                                    entity.Controller.Distance +
-                                                   Vector3.Distance(Camera.main.transform.position,
+                                                   Vector3.Distance(entity.Camera.transform.position,
                                                                     entity.Controller.Transform.position));
             bool hit = hits.Any(x => x.transform == entity.Controller.Target.Transform);
             if (hit)
             {
-                Debug.Log("HIT");
+                entity.Controller.Enabled = true;
                 entity.TargetState = TargetState.Active;
             }
         }

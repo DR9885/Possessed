@@ -92,6 +92,19 @@ public class MasterController : MonoBehaviour
         get { return _speed; }
     }
 
+    private Camera _camera;
+    public Camera Camera
+    {
+        get
+        {
+            if (_camera == null)
+                _camera = Camera.main;
+            if (_camera == null)
+                _camera = FindObjectOfType(typeof(Camera)) as Camera;
+            return _camera;
+
+        }
+    }
 
     #endregion
 
