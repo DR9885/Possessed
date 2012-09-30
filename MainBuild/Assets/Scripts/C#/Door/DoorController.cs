@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections;
 
 [AddComponentMenu("Possessed/Controlls/Door")]
-public class DoorController : MonoBehaviour, IController, IFSMState<MasterController, ControllerState>
+public class DoorController : MonoBehaviour, IController
 {
     #region Fields
     
@@ -88,38 +88,6 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
 
     #endregion
 
-    #region IFSMState
-
-    public ControllerState State
-    {
-        get { return ControllerState.Door; }
-    }
-
-    public void Enter(MasterController entity)
-    {
-        enabled = true;
-
-        if(IsGhost)
-            foreach (Door door in Doors)
-                door.WalkThrough(this);
-        else if (_door != null)
-                _door.Open(this);
-//        TargetState = TargetState.;
-    }
-
-    public void Execute(MasterController entity)
-    {
-        
-    }
-
-    public void Exit(MasterController entity)
-    {
-        entity.TargetState = TargetState.Idle;
-        enabled = false;
-    }
-
-    #endregion
-
     public void Open(Door door)
     {
 
@@ -136,4 +104,23 @@ public class DoorController : MonoBehaviour, IController, IFSMState<MasterContro
         if (_door != null)
             door.Close();
     }
+
+
+    #region MasterController Messages
+
+    private void OnEnter()
+    {
+        if (IsGhost)
+            foreach (Door door in Doors)
+                door.WalkThrough(this);
+        else if (_door != null)
+            _door.Open(this);
+    }
+
+    private void OnExit()
+    {
+
+    }
+
+    #endregion
 }

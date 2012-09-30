@@ -115,7 +115,7 @@ public class MasterController : MonoBehaviour
         Input.multiTouchEnabled = true;
         ControllerFSM = new FSM<MasterController, ControllerState>(this);
         ControllerFSM.RegisterState(null);
-        ControllerFSM.RegisterState(GetComponent<DoorController>());
+//        ControllerFSM.RegisterState(GetComponent<DoorController>());
 //        ControllerFSM.RegisterState(GetComponent<PickUpController>());
         ControllerFSM.ChangeState(ControllerState.None);
 

@@ -21,6 +21,8 @@ public class DoorGhostState : IFSMState<Door, DoorState>
         OriginalMaterial = entity.TargetRenderer.material;
         HoverMaterial.mainTexture = OriginalMaterial.mainTexture;
         entity.TargetRenderer.material = HoverMaterial;
+
+        //TODO: Disable Collider
     }
 
     public void Execute(Door entity)
@@ -45,5 +47,7 @@ public class DoorGhostState : IFSMState<Door, DoorState>
     public void Exit(Door entity)
     {
         entity.TargetRenderer.material = OriginalMaterial;
+
+        //TODO: Enable Collider
     }
 }
