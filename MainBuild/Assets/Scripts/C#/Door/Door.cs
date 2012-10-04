@@ -43,6 +43,25 @@ public class Door : MonoBehaviour, ITargetable
         }
     }
 
+    private BoxCollider _boxCollider;
+    public Collider TargetCollider
+    {
+        get
+        {
+            if (_boxCollider == null)
+                _boxCollider = GetComponent<BoxCollider>();
+            if (_boxCollider == null)
+            {
+                _boxCollider = GameObject.AddComponent<BoxCollider>();
+                _boxCollider.isTrigger = true;
+                _boxCollider.center = new Vector3(0, 0.84f, 0.58f);
+                _boxCollider.size = new Vector3(1.46f, 1.7f, 1.35f);
+            }
+            return _boxCollider;
+        }
+    }
+
+
     private SkinnedMeshRenderer _targetRenderer;
     public Renderer TargetRenderer
     {
@@ -51,6 +70,19 @@ public class Door : MonoBehaviour, ITargetable
             if (_targetRenderer == null)
                 _targetRenderer = Transform.Find("joint1").GetComponent<SkinnedMeshRenderer>();
             return _targetRenderer;
+        }
+    }
+
+    private Highlight _highlight;
+    public Highlight Highlight
+    {
+        get
+        {
+            if (_highlight == null)
+                _highlight = GetComponent<Highlight>();
+            if (_highlight == null)
+                _highlight = GameObject.AddComponent<Highlight>();
+            return _highlight;
         }
     }
 
@@ -85,6 +117,11 @@ public class Door : MonoBehaviour, ITargetable
 
     #region Unity Methods
 
+    private void Reset()
+    {
+        TargetCollider.enabled = false;
+    }
+
     private void Awake()
     {
         ActionFSM = new FSM<Door, DoorState>(this);
@@ -92,6 +129,7 @@ public class Door : MonoBehaviour, ITargetable
         ActionFSM.RegisterState(new DoorOpenState());
         ActionFSM.RegisterState(new DoorGhostState());
         ActionFSM.ChangeState(DoorState.Idle);
+        TargetCollider.enabled = false;
     }
 
     private void FixedUpdate()
@@ -112,15 +150,11 @@ public class Door : MonoBehaviour, ITargetable
     {
         _opener = opener;
         ActionState = DoorState.Ghost;
-
-        //TODO: Disable Collider
     }
 
     public void Close()
     {
         _opener = null;
         ActionState = DoorState.Idle;
-
-        //TODO: Enable Collider
     }
 }

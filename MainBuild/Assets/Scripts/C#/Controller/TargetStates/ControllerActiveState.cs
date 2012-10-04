@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class ControllerActiveState : IFSMState<MasterController, TargetState>
 {
 
@@ -9,7 +11,9 @@ public class ControllerActiveState : IFSMState<MasterController, TargetState>
 
     public void Enter(MasterController entity)
     {
-        entity.ControllerState = (entity.Controller as IFSMState<MasterController, ControllerState>).State;
+        (entity.Controller as MonoBehaviour).SendMessage("OnEnter");
+
+//        entity.ControllerState = (entity.Controller as IFSMState<MasterController, ControllerState>).State;
     }
 
     public void Execute(MasterController entity)

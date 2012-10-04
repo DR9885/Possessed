@@ -3,9 +3,9 @@ using System.Linq;
 using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("Possessed/Controlls/PickUp")]
 public class PickUpController : MonoBehaviour, IController
 {
-
     #region Fields
 
     [SerializeField]
@@ -22,7 +22,7 @@ public class PickUpController : MonoBehaviour, IController
     }
 
     [SerializeField]
-    private PickUp _Door;
+    private PickUp _pickUp;
     public IEnumerable<ITargetable> Targets
     {
         get
@@ -34,8 +34,8 @@ public class PickUpController : MonoBehaviour, IController
 
     public ITargetable Target
     {
-        get { return _Door; }
-        set { _Door = value as PickUp; }
+        get { return _pickUp; }
+        set { _pickUp = value as PickUp; }
     }
 
     private Transform _transform;
@@ -70,4 +70,14 @@ public class PickUpController : MonoBehaviour, IController
     }
 
     #endregion
+
+    public void PickUp()
+    {
+        
+    }
+
+    public void Drop()
+    {
+        
+    }
 }

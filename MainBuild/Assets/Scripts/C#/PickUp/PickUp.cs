@@ -3,6 +3,9 @@ using System.Linq;
 using UnityEngine;
 using System.Collections;
 
+
+
+[AddComponentMenu("Possessed/Objects/PickUp")]
 public class PickUp : MonoBehaviour, ITargetable
 {
     #region Fields
@@ -40,14 +43,47 @@ public class PickUp : MonoBehaviour, ITargetable
         }
     }
 
-    private SkinnedMeshRenderer _targetRenderer;
+    private BoxCollider _boxCollider;
+    public Collider TargetCollider
+    {
+        get
+        {
+            if (_boxCollider == null)
+                _boxCollider = GetComponent<BoxCollider>();
+            if (_boxCollider == null)
+            {
+                _boxCollider = GameObject.AddComponent<BoxCollider>();
+                _boxCollider.isTrigger = true;
+                _boxCollider.center = new Vector3(0, 0.84f, 0.58f);
+                _boxCollider.size = new Vector3(1.46f, 1.7f, 1.35f);
+            }
+            return _boxCollider;
+        }
+    }
+
+    private Renderer _targetRenderer;
     public Renderer TargetRenderer
     {
         get
         {
             if (_targetRenderer == null)
-                _targetRenderer = Transform.GetComponentInChildren<SkinnedMeshRenderer>();
+                _targetRenderer = Transform.GetComponentInChildren<Renderer>();
+            if (_targetRenderer == null)
+                _targetRenderer = Transform.GetComponent<Renderer>();
             return _targetRenderer;
+        }
+    }
+    
+    private Highlight _highlight;
+    public Highlight Highlight
+    {
+        get
+        {
+            if (_highlight == null)
+                _highlight = GetComponent<Highlight>();
+            if (_highlight == null)
+                _highlight = GameObject.AddComponent<Highlight>();
+            return _highlight;
         }
     }
 
