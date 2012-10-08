@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\C#\Door\States\DoorIdleState.cs" />
      <Compile Include="Assets\Scripts\C#\Door\States\DoorOpenState.cs" />
      <Compile Include="Assets\Scripts\C#\Door\States\DoorState.cs" />
+     <Compile Include="Assets\Scripts\C#\Effects\Highlight.cs" />
      <Compile Include="Assets\Scripts\C#\PickUp\PickUp.cs" />
      <Compile Include="Assets\Scripts\C#\PickUp\PickUpController.cs" />
      <Compile Include="Assets\Shaders\ShieldUvAnimation.cs" />
