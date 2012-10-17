@@ -46,10 +46,12 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AnimationController.js" />
      <Compile Include="Assets\Scripts\CameraRelativeControl.js" />
+     <Compile Include="Assets\Scripts\CullingLayers.js" />
      <Compile Include="Assets\Scripts\FollowTransform.js" />
      <Compile Include="Assets\Scripts\Joystick.js" />
      <Compile Include="Assets\Scripts\PCMovement.js" />
      <Compile Include="Assets\Scripts\PlayerControl.js" />
+     <Compile Include="Assets\Scripts\RotateSphere.js" />
      <Compile Include="Assets\Scripts\RotationConstraint.js" />
      <Compile Include="Assets\Scripts\SetDestination.js" />
      <Compile Include="Assets\Scripts\SmoothFollow.js" />
